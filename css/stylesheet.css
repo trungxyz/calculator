@@ -1,0 +1,83 @@
+body {
+  background-color: #ECF0F1;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  color: white;
+}
+
+#calculator-body {
+  display: grid;
+  width: auto;
+  height: auto;
+  grid-template-columns: repeat(4, 100px);
+  grid-template-rows: repeat(7, 100px);
+  grid-gap: 10px;
+  background-color: #252525;
+  box-shadow: 0px 0px 50px rgb(0,0,0,0.6);
+  margin-top: 20vh;
+  padding: 75px;
+  border-radius: 10px;
+}
+
+#container-output {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column-start: 1;
+  grid-column-end: 5;
+  padding-right: 37px;
+  border-bottom: 1px solid #ECF0F1;
+}
+
+h2 {
+  font-weight: normal;
+  font-size: 4.5em;
+  text-align: right;
+  margin-block-end: 0px;
+  margin-block-start: 40px;
+}
+
+#calculation {
+  text-align: right;
+  margin-block-start: 0px;
+  color: #ffffff80;
+  padding-right: 7px;
+}
+
+.buttons {
+  width: 100%;
+  height: 100%;
+  font-size: 1.4em;
+  font-family: 'DM Sans', sans-serif;
+  background-color: transparent;
+  border: 1px none black;
+  border-radius: 5px;
+  color: #ffffff80;
+  font-weight: normal;
+}
+
+#clear {
+  color: #FF544E;
+}
+
+.operator {
+  color: #2A98DB;
+}
+
+.enlarge {
+  font-size: 2.2em;
+}
+
+#equal {
+  color: white;
+}
+
+.buttons:focus {
+  outline: none;
+}
+
+.buttons:active {
+  background-color: #ECF0F120;
+  transform: scale(0.9);
+}
