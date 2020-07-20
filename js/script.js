@@ -1,100 +1,157 @@
-let buttons = document.querySelectorAll('.buttons');
-let calculation = document.querySelector('#calculation');
-let output = document.querySelector('#output');
-let outputStored = '';
-let lastOperator = '';
-let returnSwitch = 0;
-let errorSwitch = 0;
+let calculation = {
+  firstNumber: '',
+  operator: '',
+  secondNumber: '',
+  accum: ''
+};
 
-let accum = 0;
-let lastNumber = 0;
+function continueCalculation(firstNumber, operator) {
 
-buttons.forEach( function(btn) {
-  btn.addEventListener('click', function() {
-    // check switch function
-    if (returnSwitch === 1 || errorSwitch === 1) {
-      clearOperator();
+  calculation.firstNumber = firstNumber;
+  calculation.operator = operator;
+  calculation.secondNumber = '';
+  calculation.accum = '';
+
+  document.querySelector('#primary-display').textContent = firstNumber;
+
+  let secondaryDisplay = document.querySelector('#secondary-display');
+  secondaryDisplay.textContent = "(" + secondaryDisplay.textContent + ")";
+
+};
+
+document.querySelectorAll('.number').forEach( function(button) {
+
+  button.addEventListener('click', function() {
+
+    if (calculation.accum != '') {
+      resetCalculation();
     }
-    if (btn.value >= 0 && btn.value <= 9) {
-      output.textContent = outputStored + btn.value;
-      outputStored = output.textContent;
-      calculation.textContent += btn.value;
-    } else if (btn.value === 'C') {
-      clearOperator();
-    } else if (btn.value === '='){
-      performOperation(lastOperator, Number(accum), Number(output.textContent));
-      returnSwitch = 1;
-    } else {
-      lastNumber = outputStored;
-      if (accum == 0) {
-        accum = outputStored;
-      } else {
-        performOperation(lastOperator, Number(accum), Number(lastNumber));
-        accum = output.textContent;
-      }
-      outputStored = "";
-      lastOperator = btn.value;
-      calculation.textContent += ' ' + btn.value + ' ';
-    }
-  });
+
+    let calculationNumber = storeNumber(button.value);
+    updateDisplay(calculationNumber, button.value);
+  })
+
 });
 
-function performOperation(operator, numberOne, numberTwo) {
-  if (operator === '+') {
-    output.textContent = addOperator(numberOne, numberTwo);
-  } else if (operator === '-') {
-    output.textContent = subtractOperator(numberOne, numberTwo);
-  } else if (operator === '×') {
-    output.textContent = multiplyOperator(numberOne, numberTwo);
-  } else if (operator === '÷') {
-    output.textContent = divideOperator(numberOne, numberTwo);
-  }
-}
+function storeNumber(value) {
 
-function addOperator(a, b) {
-  return a + b;
-}
-
-function subtractOperator(a, b) {
-  return a - b;
-}
-
-function multiplyOperator(a, b) {
-  return a * b;
-}
-
-function divideOperator(a, b) {
-  if (b == 0) {
-    errorSwitch = 1;
-    return "error";
+  if (calculation.operator === '') {
+    calculation.firstNumber += value;
+    return "firstNumber";
   } else {
-    return a / b;
+    calculation.secondNumber += value;
+    return "secondNumber";
+  }
+
+};
+
+document.querySelectorAll('.operator').forEach( function(button) {
+
+  button.addEventListener('click', function() {
+
+    if (calculation.firstNumber === '') {
+      return;
+    }
+
+    if (button.id === "clear") {
+      resetCalculation();
+      return;
+    } else if (button.id === "equal") {
+      let callOperator = calculation.operator;
+      calculation.accum = window[callOperator](calculation.firstNumber, calculation.secondNumber).toString();
+      updateDisplay("equal", calculation.accum);
+      return;
+    }
+
+    if (calculation.secondNumber === '') {
+      updateDisplay("operator", button.value);
+      calculation.operator = button.id;
+    } else if (calculation.secondNumber != '') {
+      let callOperator = calculation.operator;
+      let firstNumber = window[callOperator](calculation.firstNumber, calculation.secondNumber).toString();
+      continueCalculation(firstNumber, button.id);
+      document.querySelector('#secondary-display').textContent += " " + button.value + " ";
+    }
+
+  })
+
+});
+
+document.querySelectorAll('.modifier').forEach( function(button) {
+
+})
+
+function updateDisplay(calculationType, buttonValue) {
+
+  let primaryDisplay = document.querySelector('#primary-display');
+  let secondaryDisplay = document.querySelector('#secondary-display');
+
+  if (calculationType === "firstNumber") {
+    primaryDisplay.textContent = calculation.firstNumber;
+    secondaryDisplay.textContent += buttonValue;
+  } else if (calculationType === "secondNumber") {
+    primaryDisplay.textContent = calculation.secondNumber;
+    secondaryDisplay.textContent += buttonValue;
+  } else if (calculationType === "operator") {
+    if (calculation.operator === '') {
+      secondaryDisplay.textContent += " " + buttonValue + " ";
+    } else {
+      let string = secondaryDisplay.textContent;
+      secondaryDisplay.textContent = string.slice(0, string.length - 2) + " " + buttonValue + " ";
+    }
+  } else if (calculationType === "equal") {
+    primaryDisplay.textContent = buttonValue;
+  }
+
+};
+
+function resetCalculation() {
+
+  for (let key in calculation) {
+    calculation[key] = '';
+  }
+
+  document.querySelector('#primary-display').textContent = '';
+  document.querySelector('#secondary-display').textContent = '';
+
+};
+
+function clearDisplay() {
+
+}
+
+function add(a, b) {
+  return Number(a) + Number(b);
+}
+
+function subtract(a, b) {
+  return Number(a) - Number(b);
+}
+
+function multiply(a, b) {
+  return Number(a) * Number(b);
+}
+
+function divide(a, b) {
+  if (Number(b) === 0) {
+    return NaN;
+  } else {
+    return Math.round( (Number(a) / Number(b)) * 100 )/100;
   }
 }
 
-function equalOperator() {
+function decimalPlace(a) {
 
 }
 
-function backspaceOperator() {
+function backspace(a) {
 
 }
 
-function plusminusOperator() {
-
+function plusminus(a) {
+  return -a;
 }
 
-function percentageOperator() {
-
-}
-
-function clearOperator() {
-  outputStored = "";
-  calculation.textContent = '';
-  output.textContent = '';
-  returnSwitch = 0;
-  errorSwtich = 1;
-  accum = 0;
-  lastNumber = 0;
-  lastOperator = '';
+function percentage(a) {
+  return a / 100;
 }

@@ -5,36 +5,36 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div id="calculator-body">
-    <div id="container-output">
-      <h2 id="output"></h2>
-      <p id="calculation"></p>
+  <div id="container-calculator">
+    <div id="container-display">
+      <h2 id="primary-display"></h2>
+      <p id="secondary-display"></p>
     </div>
     <!-- Row 1 -->
-    <input type="button" name="clear" class="buttons operator" id="clear" value="C">
-    <input type="button" name="plusminus" class="buttons operator" id="plusminus" value="+/-">
-    <input type="button" name="percentage" class="buttons operator" id="percentage" value="%">
-    <input type="button" name="divide" class="buttons operator enlarge" id="divide" value="÷">
+    <input type="button" name="clear" class="operator" id="clear" value="C">
+    <input type="button" name="plusminus" class="modifier" id="plusminus" value="+/-">
+    <input type="button" name="percentage" class="modifier" id="percentage" value="%">
+    <input type="button" name="divide" class="operator" id="divide" value="÷">
     <!-- Row 2 -->
-    <input type="button" name="seven" class="buttons" id="seven" value=7>
-    <input type="button" name="eight" class="buttons" id="eight" value=8>
-    <input type="button" name="nine" class="buttons" id="nine" value=9>
-    <input type="button" name="multiply" class="buttons operator enlarge" id="multiply" value="×">
+    <input type="button" name="seven" class="number" id="seven" value=7>
+    <input type="button" name="eight" class="number" id="eight" value=8>
+    <input type="button" name="nine" class="number" id="nine" value=9>
+    <input type="button" name="multiply" class="operator" id="multiply" value="×">
     <!-- Row 3 -->
-    <input type="button" name="four" class="buttons" id="four" value=4>
-    <input type="button" name="five" class="buttons" id="five" value=5>
-    <input type="button" name="six" class="buttons" id="six" value=6>
-    <input type="button" name="subtract" class="buttons operator enlarge" id="subtract" value="-">
+    <input type="button" name="four" class="number" id="four" value=4>
+    <input type="button" name="five" class="number" id="five" value=5>
+    <input type="button" name="six" class="number" id="six" value=6>
+    <input type="button" name="subtract" class="operator" id="subtract" value="-">
     <!-- Row 4 -->
-    <input type="button" name="one" class="buttons" id="one" value=1>
-    <input type="button" name="two" class="buttons" id="two" value=2>
-    <input type="button" name="three" class="buttons" id="three" value=3>
-    <input type="button" name="add" class="buttons operator enlarge" id="add" value="+">
+    <input type="button" name="one" class="number" id="one" value=1>
+    <input type="button" name="two" class="number" id="two" value=2>
+    <input type="button" name="three" class="number" id="three" value=3>
+    <input type="button" name="add" class="operator" id="add" value="+">
     <!-- Row 5 -->
-    <input type="button" name="zero" class="buttons" id="zero" value=0>
-    <input type="button" name="decimal" class="buttons" id="decimal" value=".">
-    <input type="button" name="backspace" class="buttons " id="backspace" value="<">
-    <input type="button" name="equal" class="buttons operator enlarge" id="equal" value="=">
+    <input type="button" name="zero" class="number" id="zero" value=0>
+    <input type="button" name="decimal" class="modifier" id="decimal" value=".">
+    <input type="button" name="backspace" class="modifier " id="backspace" value="<">
+    <input type="button" name="equal" class="operator" id="equal" value="=">
   </div>
   <script src="./js/script.js"></script>
 </body>
